@@ -26,7 +26,15 @@ function bdics_shortcode( $atts )
                 return "";
         }
         
+	if ( $field == "jel_tags" ) {
+		$post = get_post($post_id);
+        	$jt = 'jel_tags';
+        	$a = wp_get_object_terms($post->ID, $jt);
+
+		return $post->ID;
         
+	}
+	else {
 	if( get_field( $field, $post_id  ) )
 	{
 		$value = $pre ;
@@ -53,6 +61,42 @@ function bdics_shortcode( $atts )
 		}
 		$value .= $post ;
 	}
+	}
         return $value;
 }
 add_shortcode( 'bdics', 'bdics_shortcode' );
+function bdics_jel( $atts ) {
+            extract(shortcode_atts(array(
+                'field' => '',
+                'pre' => "",
+                'post' => "",
+                'decode' => '',
+		'post_id' => false,
+             ), $atts));
+	$post = get_post($post_id);
+        $jt = 'jel_tags';
+        $a = wp_get_object_terms($post->ID, $jt);
+
+
+	if(!empty($a)){
+  		if(!is_wp_error( $a )){
+		$d="";
+		$e = "";
+                foreach($a as $v)
+                {
+			$name = get_term_link($v->slug, $jt);
+			$name = $v->name;
+                	$e .="<a href='?jel_tags=".$name."'>".$name."</a>";
+                	$e .= ', ';
+            		$d = $e;
+        	}
+		
+                if(substr($d,-2)==', ')
+                        return substr($d,0,-2);
+                else
+                        return $d;
+	}
+	}
+	return "-";
+}
+add_shortcode( 'bdicsjel', 'bdics_jel' );
