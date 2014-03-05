@@ -179,3 +179,21 @@ function bdics_page( $atts ) {
 	return $r;
 }
 add_shortcode( 'bdicspage', 'bdics_page' );
+function bdics_jel_tags( $att ) {
+$args = array( 'hide_empty=0' );
+
+$terms = get_terms('jel_tags', $args);
+
+$count = count($terms); $i=0;
+if ($count > 0) {
+    $term_list = '<p class="jel-tags">';
+    foreach ($terms as $term) {
+        $i++;
+    	$term_list .= '<a href="' . get_term_link( $term ) . '" title="' . sprintf(__('View all post filed under %s', 'my_localization_domain'), $term->name) . '">' . $term->name . '</a>';
+    	if ($count != $i) $term_list .= ' &middot; '; else $term_list .= '</p>';
+    }
+    return $term_list;
+}
+	
+}
+add_shortcode( 'bdics_jel_tags', 'bdics_jel_tags' );
