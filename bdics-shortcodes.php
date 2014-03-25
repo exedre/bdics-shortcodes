@@ -49,10 +49,14 @@ function bdics_shortcode( $atts )
 			{
 				$value .= do_shortcode('[video width="960" height="720" mp4="'.$f['value'].'"]"][/video]');
 			}
-			elseif ( $f['label'] == 'audio' ) 
-			{
-				$value .= do_shortcode('[audio mp3="'.$f['value'].'"]"][/audio]');
-			}
+                        if ( $f['label'] == 'audio' )
+                        {
+                                $value .= do_shortcode('[audio mp3="'.$f['value'].'"]"][/audio]');
+                        }
+                        if ( $f['label'] == 'paper' )
+                        {
+                                $value .= do_shortcode('[pdfjs-viewer url="'.$f['value'].'"]" viewer_width=600px viewer_height=700px fullscreen=true download=true print=true openfile=false][/pdfjs-viewer]');
+                        }
 		}
 
        		if ( $mode == "text" )
