@@ -91,13 +91,12 @@ function bdics_jel( $atts ) {
                         return $d;
 		}
 	}
-	return "-";
+	return "";
 }
 add_shortcode( 'bdicsjel', 'bdics_jel' );
 function bdics_get_field( $field, $post_id, $mode ){
 	$value = "";
 	if ( get_field( $field, $post_id ) ){
-		$value = $pre ;
                 $f = get_field_object($field,$post_id);
                 if ( $mode == "icon" )
                 {
@@ -118,7 +117,6 @@ function bdics_get_field( $field, $post_id, $mode ){
                 {
                          $value .= $f['value'];
                 }
-                $value .= $post ;
         }
         return $value;
 }
@@ -157,12 +155,12 @@ function bdics_page( $atts ) {
 	} 
 	$paper = bdics_get_field('paper',$post_id,'icon');
 	$slides= bdics_get_field('slides',$post_id,'icon');
-	$program = bdics_get_field('program',$post_id,'icon');
+	$program = bdics_get_field('programma',$post_id,'icon');
 	$audiolink = bdics_get_field('audio',$post_id,'icon');
 	$audio= bdics_get_field('audio',$post_id,'player');
 	$video= bdics_get_field('video',$post_id,'player');
 
-	if ( $paper != "" or $slides != "" or $program != "" or $audiolink != "" ) {
+	if ( 1 or $paper != "" or $slides != "" or $program != "" or $audiolink != "" ) {
 		$r .= "<tr><td><b>Scarica</b></td><td colspan=3>" . $paper . $slides . $program . $audiolink . "</td></tr>";
 	}
 	if ( $notes != "" ) {
